@@ -63,7 +63,7 @@ jobs:
           FERN_TOKEN: ${{ secrets.FERN_TOKEN }}
         run: |
           cd fern
-          if (${{ github.event.inputs.preview_mode == true }}) {
+          if (${{ github.event.inputs.preview_mode == 'true' }}) {
             fern generate --docs --preview
           } else {
             fern generate --docs
