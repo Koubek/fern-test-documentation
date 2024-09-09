@@ -30,20 +30,10 @@ jobs:
       - name: Copy API files to Fern directory
         shell: pwsh
         run: |
-          $sourcePath = "APPLICATION\src\_API_MODERN_SERVICES"
-          $destinationPath = "fern\definition"
-          $null = New-Item -ItemType Directory -Force -Path $destinationPath
-          Get-ChildItem -Path $sourcePath -Include *.yml,*.yaml -Recurse | ForEach-Object {
-              $relativePath = $_.FullName.Substring($sourcePath.Length).TrimStart('\')
-              $targetFile = Join-Path $destinationPath $relativePath
-              $targetDir = Split-Path $targetFile -Parent
-              if (!(Test-Path $targetDir)) {
-                  $null = New-Item -ItemType Directory -Force -Path $targetDir
-              }
-              Write-Host "Copying file $($_.FullName) to $targetFile ..."
-              Copy-Item $_.FullName -Destination $targetFile
-          }
-          Get-ChildItem -Path $destinationPath -Recurse
+          $currentPath = (Get-Location).Path
+          $sourcePath = Join-Path $currentPath "APPLICATION\src\_API_MODERN_SERVICES"
+          $destinationPath = Join-Path $currentPath "fern\definition"
+          $null = Copy-Item -Path $sourcePath -Destination $destinationPath -Recurse -Force
           Write-Host "Files copied successfully."
 
       # Runs a single command using the runners shell
@@ -59,7 +49,6 @@ jobs:
       - name: Check API Documentation
         run: |
           cd fern
-          ls
           fern check
 
       # Runs a set of commands using the runners shell
