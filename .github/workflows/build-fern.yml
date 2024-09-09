@@ -34,7 +34,8 @@ jobs:
           $destinationPath = "fern\definition"
           $null = New-Item -ItemType Directory -Force -Path $destinationPath
           Get-ChildItem -Path $sourcePath -Include *.yml,*.yaml -Recurse | ForEach-Object {
-              $targetFile = Join-Path $destinationPath $_.FullName.Substring($sourcePath.Length)
+              $relativePath = $_.FullName.Substring($sourcePath.Length).TrimStart('\')
+              $targetFile = Join-Path $destinationPath $relativePath
               $targetDir = Split-Path $targetFile -Parent
               if (!(Test-Path $targetDir)) {
                   $null = New-Item -ItemType Directory -Force -Path $targetDir
@@ -42,7 +43,7 @@ jobs:
               Write-Host "Copying file $($_.FullName) to $targetFile ..."
               Copy-Item $_.FullName -Destination $targetFile
           }
-          ls
+          Get-ChildItem -Path $destinationPath -Recurse
           Write-Host "Files copied successfully."
 
       # Runs a single command using the runners shell
