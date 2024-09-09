@@ -1,0 +1,36 @@
+instances:
+  - url: https://koubek.docs.buildwithfern.com
+
+title: Koubek | Test API Documentation
+
+layout:
+  searchbar-placement: header
+  page-width: full
+
+tabs: 
+  api: 
+    display-name: API Reference
+    icon: puzzle
+  help:
+    display-name: Help Center
+    icon: home
+  github:
+    display-name: GitHub
+    icon: brands github
+    href: https://github.com/Koubek/fern-test-documentation
+
+navigation:
+    # Public pages visible on the landing page:
+    - page: Introduction
+      icon: fa-solid house
+      path: docs/pages/intro.mdx
+    # API definition:
+    - api: API Reference
+      icon: fa-solid fa-code
+      flattened: true
+      display-errors: false
+      snippets:
+        python: your-package-name  # <---- needs to match the naming in generators.yml
+        typescript: your-package-name
+        ruby: your-package-name
+        go: https://github.com/your-organization/your-repository # <---- needs the https://github.com/ prefix
