@@ -19,6 +19,7 @@ jobs:
   build-and-publish:
     # The type of runner that the job will run on
     runs-on: windows-latest
+    environment: DEFAULT_ENV
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -34,6 +35,12 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Install Fern
         run: npm install -g fern-api
+
+      # Runs a set of commands using the runners shell
+      - name: Login to Fern
+        run: fern login ${{ secrets.FERN_TOKEN }}
+        env:
+          FERN_TOKEN: ${{ secrets.FERN_TOKEN }}
 
       # Runs a set of commands using the runners shell
       - name: Generate API Documentation
