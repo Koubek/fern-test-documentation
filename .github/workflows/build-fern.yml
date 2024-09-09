@@ -42,7 +42,7 @@ jobs:
               Copy-Item $_.FullName -Destination $targetFile
           }
           Write-Host "Files copied successfully."
-
+          
       # Runs a single command using the runners shell
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -56,6 +56,7 @@ jobs:
       - name: Check API Documentation
         run: |
           cd fern
+          ls
           fern check
 
       # Runs a set of commands using the runners shell
