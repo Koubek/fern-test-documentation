@@ -39,10 +39,12 @@ jobs:
               if (!(Test-Path $targetDir)) {
                   $null = New-Item -ItemType Directory -Force -Path $targetDir
               }
+              Write-Host "Copying file $($_.FullName) to $targetFile ..."
               Copy-Item $_.FullName -Destination $targetFile
           }
+          ls
           Write-Host "Files copied successfully."
-          
+
       # Runs a single command using the runners shell
       - name: Setup Node.js
         uses: actions/setup-node@v3
