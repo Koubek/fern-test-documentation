@@ -59,14 +59,17 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: Generate API Documentation
+        shell: pwsh
         env:
           FERN_TOKEN: ${{ secrets.FERN_TOKEN }}
         run: |
           cd fern
           ${{ github.event.inputs.preview_mode }}
           if (${{ github.event.inputs.preview_mode == 'true' }}) {
+            Write-Host "Generating in preview mode ..."
             fern generate --docs --preview
           } else {
+           Write-Host "Generating ..."
             fern generate --docs
           }
 
