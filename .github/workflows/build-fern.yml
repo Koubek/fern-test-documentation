@@ -40,7 +40,7 @@ jobs:
       - name: Generate API Documentation
         env:
           FERN_TOKEN: ${{ secrets.FERN_TOKEN }}
-        run: fern generate --group docs
+        run: fern generate --docs
 
       # Runs a set of commands using the runners shell
       #- name: Deploy to GitHub Pages
