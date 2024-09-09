@@ -26,6 +26,23 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
+      # Copy API files to Fern directory
+      - name: Copy API files to Fern directory
+        shell: pwsh
+        run: |
+          $sourcePath = "APPLICATION\src\_API_MODERN_SERVICES"
+          $destinationPath = "fern\definition"
+          New-Item -ItemType Directory -Force -Path $destinationPath
+          Get-ChildItem -Path $sourcePath -Include *.yml,*.yaml -Recurse | ForEach-Object {
+              $targetFile = Join-Path $destinationPath $_.FullName.Substring($sourcePath.Length)
+              $targetDir = Split-Path $targetFile -Parent
+              if (!(Test-Path $targetDir)) {
+                  New-Item -ItemType Directory -Force -Path $targetDir
+              }
+              Copy-Item $_.FullName -Destination $targetFile
+          }
+          Write-Host "Files copied successfully."
+
       # Runs a single command using the runners shell
       - name: Setup Node.js
         uses: actions/setup-node@v3
