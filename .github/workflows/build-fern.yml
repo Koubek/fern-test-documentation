@@ -54,13 +54,17 @@ jobs:
         run: npm install -g fern-api
 
       - name: Check API Documentation
-        run: fern check
+        run: |
+          cd fern
+          fern check
 
       # Runs a set of commands using the runners shell
       - name: Generate API Documentation
         env:
           FERN_TOKEN: ${{ secrets.FERN_TOKEN }}
-        run: fern generate --docs
+        run: |
+          cd fern
+          fern generate --docs
 
       # Runs a set of commands using the runners shell
       - name: Notify on success
