@@ -12,6 +12,12 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      preview_mode:
+        description: 'Generate docs in preview mode'
+        required: true
+        default: true
+        type: boolean
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -57,7 +63,11 @@ jobs:
           FERN_TOKEN: ${{ secrets.FERN_TOKEN }}
         run: |
           cd fern
-          fern generate --docs
+          if (${{ github.event.inputs.preview_mode == true }}) {
+            fern generate --docs --preview
+          } else {
+            fern generate --docs
+          }
 
       # Runs a set of commands using the runners shell
       - name: Notify on success
