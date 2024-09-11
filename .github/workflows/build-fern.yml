@@ -62,20 +62,32 @@ jobs:
           cd fern
           fern check
 
-      # Runs a set of commands using the runners shell
       - name: Generate API Documentation
+        if: github.ref == 'refs/heads/main'
         shell: pwsh
         env:
           FERN_TOKEN: ${{ secrets.FERN_TOKEN }}
         run: |
           cd fern
-          if (${{ github.event_name == 'pull_request' || github.event.inputs.preview_mode == 'true' }}) {
-            Write-Host "Generating in preview mode ..."
-            fern generate --docs --preview --mode pull-request
-          } else {
-            Write-Host "Generating ..."
-            fern generate --docs
-          }
+          fern generate --docs
+
+      - name: Generate API Documentation in PR preview mode
+        if: github.event_name == 'pull_request'
+        shell: pwsh
+        env:
+          FERN_TOKEN: ${{ secrets.FERN_TOKEN }}
+        run: |
+          cd fern
+          fern generate --docs --preview --mode pull-request
+
+      - name: Generate API Documentation in preview mode
+        if: github.event_name == 'workflow_dispatch' && inputs.preview_mode == true
+        shell: pwsh
+        env:
+          FERN_TOKEN: ${{ secrets.FERN_TOKEN }}
+        run: |
+          cd fern
+          fern generate --docs --preview --mode pull-request
 
       # Runs a set of commands using the runners shell
       - name: Notify on success
