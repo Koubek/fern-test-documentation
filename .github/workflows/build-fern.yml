@@ -52,6 +52,11 @@ jobs:
       - name: Install Fern
         run: npm install -g fern-api
 
+      - name: Upgrade Fern
+        run: |
+          cd fern
+          fern upgrade
+
       - name: Check API Documentation
         run: |
           cd fern
