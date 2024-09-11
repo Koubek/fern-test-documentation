@@ -61,13 +61,13 @@ jobs:
       - name: Generate API Documentation
         shell: pwsh
         env:
-          FERN_TOKEN: ${{ secrets.FERN_TOKEN }}
+          FERN_TOKEN: ${{ secrets.FERN_TOKEN }}J
         run: |
           cd fern
           ${{ github.event.inputs.preview_mode }}
           if (${{ github.event.inputs.preview_mode == 'true' }}) {
             Write-Host "Generating in preview mode ..."
-            fern generate --docs --preview
+            fern generate --docs --preview --mode "pull-request"
           } else {
            Write-Host "Generating ..."
             fern generate --docs
