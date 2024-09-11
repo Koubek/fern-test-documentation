@@ -72,10 +72,10 @@ jobs:
           ${{ github.event.inputs.preview_mode }}
           if (${{ github.event.inputs.preview_mode == 'true' }}) {
             Write-Host "Generating in preview mode ..."
-            fern generate --docs --preview --mode pull-request
+            fern generate --docs --preview --mode pull-request --log-level debug
           } else {
            Write-Host "Generating ..."
-            fern generate --docs
+            fern generate --docs --log-level debug
           }
 
       # Runs a set of commands using the runners shell
