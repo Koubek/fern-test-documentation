@@ -71,6 +71,14 @@ jobs:
           cd fern
           fern generate --docs
 
+      - name: Generate Fern SDKs
+        shell: pwsh
+        env:
+          FERN_TOKEN: ${{ secrets.FERN_TOKEN }}
+        run: |
+          cd fern
+          fern generate
+
       - name: Generate API Documentation in PR preview mode
         if: github.event_name == 'pull_request'
         shell: pwsh
@@ -92,4 +100,4 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Notify on success
         run: |
-          echo "API documentation has been successfully updated and deployed."
+          echo "API documentation and SDKs have been successfully updated and deployed."
