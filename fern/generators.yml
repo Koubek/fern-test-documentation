@@ -8,9 +8,18 @@ groups:
           location: local-file-system
           path: ../sdks/typescript
 
-      - name: fernapi/fern-openapi
+      - name: fernapi/fern-openapi-yaml
         version: 0.0.31
         config:
           format: yaml # options are yaml or json
-        github:
-          repository: Koubek/fern-test-sdk
+        output:
+          location: local-file-system
+          path: ../sdks/openapi-yaml
+
+      - name: fernapi/fern-openapi-json
+        version: 0.0.31
+        config:
+          format: json # options are yaml or json
+        output:
+          location: local-file-system
+          path: ../sdks/openapi-json
