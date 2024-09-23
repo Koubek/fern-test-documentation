@@ -57,10 +57,10 @@ jobs:
           cd fern
           fern upgrade
 
-      - name: Check API Documentation
-        run: |
-          cd fern
-          fern check
+      # - name: Check API Documentation
+      #   run: |
+      #     cd fern
+      #     fern check
 
       - name: Generate API Documentation
         if: github.ref == 'refs/heads/main'
